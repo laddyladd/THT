@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingEnd="30dp"
+        android:layout_weight="0.11" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Back"
+            android:id="@+id/back"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Hike Name"
+            android:id="@+id/textView7"
+            android:textIsSelectable="false"
+            android:textSize="30dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="195dp"
+            android:layout_height="195dp"
+            android:id="@+id/imageView" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="163dp"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Distance:"
+                android:id="@+id/textView15"
+                android:layout_weight="0.43" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Difficulty:"
+                android:id="@+id/textView16" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView17"
+        android:layout_weight="0.11" />
+
+    <Button
+        android:layout_width="163dp"
+        android:layout_height="0dp"
+        android:text="Directions"
+        android:textAllCaps="false"
+        android:id="@+id/directions"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.36"
+        android:textSize="25dp" />
+
+</LinearLayout>
