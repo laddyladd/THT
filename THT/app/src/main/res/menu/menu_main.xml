@@ -8,6 +8,6 @@
         android:title="My Group" />
     <item android:id="@+id/info"
         android:title="Stats/My Info" />
-    <item android:id="@+id/camera"
+    <item android:id="@+id/Home"
         android:title="Stats/Open Camera" />
 </menu>

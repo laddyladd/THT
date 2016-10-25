@@ -25,7 +25,7 @@ public class groups extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.myinfo);
+        setContentView(R.layout.activity_groups);
         b1 = (Button) findViewById(R.id.bm);
         b2 = (Button) findViewById(R.id.bh);
         b3 = (Button) findViewById(R.id.bs);
@@ -60,8 +60,8 @@ public class groups extends AppCompatActivity implements View.OnClickListener {
             case R.id.info:
                 startActivity(new Intent(this, myinfo.class));
                 return true;
-            case R.id.camera:
-                startActivity(new Intent(this, openCamera.class));
+            case R.id.Home:
+                startActivity(new Intent(this, Home.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

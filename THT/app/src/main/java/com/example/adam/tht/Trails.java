@@ -25,6 +25,7 @@ public class Trails extends AppCompatActivity implements ListView.OnItemClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trails);
+        listView = (ListView)findViewById(R.id.left_drawer);
         oString = new ArrayList<String>();
         hike = new HikeData();
         for (int i = 0; i < 10; i++) {
@@ -59,8 +60,8 @@ public class Trails extends AppCompatActivity implements ListView.OnItemClickLis
             case R.id.info:
                 startActivity(new Intent(this, myinfo.class));
                 return true;
-            case R.id.camera:
-                startActivity(new Intent(this, openCamera.class));
+            case R.id.Home:
+                startActivity(new Intent(this, Home.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

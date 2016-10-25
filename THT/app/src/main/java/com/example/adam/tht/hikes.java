@@ -27,6 +27,8 @@ public class hikes extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_trails);
         b = (Button)findViewById(R.id.bb);
         oString = new ArrayList<String>();
+        listView = (ListView)findViewById(R.id.listView);
+
         //Need to use database to grab the group members on users team and their stats and populate list
         //Check all hikes and members so 2 for loops needed probably
         for (int i = 0; i < 10/*Group Member size*/; i++) {

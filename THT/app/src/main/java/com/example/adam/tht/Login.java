@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
+public class Login extends AppCompatActivity implements View.OnClickListener
 {
     Button loginButton;
     ArrayList<String> pending;

@@ -1,7 +1,5 @@
 package com.example.adam.tht;
 
-import android.widget.ImageView;
-
 /**
  * Created by Adam on 10/15/2016.
  */
@@ -16,7 +14,7 @@ public class HikeData
     public int getImage(int i)
     {
         //Put in all the images of the hikes
-        return R.drawable.THT_transparent;
+        return R.drawable.tht_transparent;
     }
     public String getName(int i)
     {

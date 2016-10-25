@@ -8,14 +8,14 @@ android:layout_height="fill_parent">
     android:id="@+id/imageviewMain"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:src="@drawable/THT_transparent"
+    android:src="@drawable/tht_transparent"
     android:layout_alignParentTop="true"
     android:layout_alignParentEnd="true"
     android:layout_above="@+id/but2" />
 <Button android:id="@+id/but2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Open Camera"
+    android:text="Check In"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true" />
 </RelativeLayout>

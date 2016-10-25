@@ -13,8 +13,7 @@ import android.widget.TextView;
 /**
  * Created by Adam on 10/15/2016.
  */
-public class myinfo extends AppCompatActivity implements View.OnClickListener {
-    Button b;
+public class myinfo extends AppCompatActivity {
     TextView t1;
     TextView t2;
     TextView t3;
@@ -24,7 +23,6 @@ public class myinfo extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.myinfo);
-        b = (Button) findViewById(R.id.back);
         t1 = (TextView)findViewById(R.id.tvH); //hikes
         t2 = (TextView)findViewById(R.id.tvM); //Miles
         t3 = (TextView)findViewById(R.id.tvG); //Group
@@ -56,19 +54,12 @@ public class myinfo extends AppCompatActivity implements View.OnClickListener {
             case R.id.info:
                 startActivity(new Intent(this, myinfo.class));
                 return true;
-            case R.id.camera:
-                startActivity(new Intent(this, openCamera.class));
+            case R.id.Home:
+                startActivity(new Intent(this, Home.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-    @Override
-    public void onClick(View view)
-    {
-        if (view.getId() == b.getId()) {
-            Intent j = new Intent(this, Home.class);
-            startActivity(j);
-        }
-    }
+
 }

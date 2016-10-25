@@ -23,7 +23,7 @@ public class trailinfo extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trails);
+        setContentView(R.layout.trailinfo);
         b = (Button) findViewById(R.id.back);
         d = (Button) findViewById(R.id.directions);
         Bundle intent = getIntent().getExtras();
