@@ -50,6 +50,8 @@ public class trailinfo extends AppCompatActivity implements View.OnClickListener
             startActivity(j);
         } else if (view.getId() == d.getId()) {
             //BRING US TO DIRECTIONS ON GOOGLE
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:0, 0"));
+            startActivity(intent);
         }
     }
 }
