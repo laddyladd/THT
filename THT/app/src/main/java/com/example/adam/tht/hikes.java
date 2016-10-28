@@ -24,8 +24,10 @@ public class hikes extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trails);
+        setContentView(R.layout.activity_hikes);
         b = (Button)findViewById(R.id.bb);
+        b.setOnClickListener(this);
+
         oString = new ArrayList<String>();
         listView = (ListView)findViewById(R.id.listView);
 

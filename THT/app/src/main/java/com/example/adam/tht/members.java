@@ -26,6 +26,9 @@ public class members extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_members);
         b = (Button)findViewById(R.id.bb);
+        b.setOnClickListener(this);
+
+        listView = (ListView) findViewById(R.id.listView);
         oString = new ArrayList<String>();
         //Need to use database to grab the group members on users team and their stats and populate list
         for (int i = 0; i < 10/*Group Member size*/; i++) {

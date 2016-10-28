@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 /**
@@ -15,11 +16,15 @@ import android.widget.Toast;
 public class Home extends AppCompatActivity implements View.OnClickListener
 {
 
-
+    Button checkin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkin = (Button)findViewById(R.id.but2);
+        checkin.setOnClickListener(this);
+
+
     }
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
 
@@ -105,7 +110,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener
         }
         else
         {
-            Toast.makeText(this, "You have failed to check into: " + s,
+            Toast.makeText(this, "You have failed to check into any valid hike.",
                     Toast.LENGTH_LONG).show();
         }    }
 }

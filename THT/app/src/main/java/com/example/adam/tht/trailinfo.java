@@ -1,6 +1,7 @@
 package com.example.adam.tht;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,7 +26,11 @@ public class trailinfo extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trailinfo);
         b = (Button) findViewById(R.id.back);
+        b.setOnClickListener(this);
+
         d = (Button) findViewById(R.id.directions);
+        b.setOnClickListener(this);
+
         Bundle intent = getIntent().getExtras();
         i = intent.getInt("Hike Value");
         data = new HikeData();
@@ -50,7 +55,10 @@ public class trailinfo extends AppCompatActivity implements View.OnClickListener
             startActivity(j);
         } else if (view.getId() == d.getId()) {
             //BRING US TO DIRECTIONS ON GOOGLE
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:0, 0"));
+            String search = data.getName(i);
+            search.replaceAll("\\s+","+");
+
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:37.2296, -80.4139?q="+search));
             startActivity(intent);
         }
     }

@@ -30,6 +30,10 @@ public class groups extends AppCompatActivity implements View.OnClickListener {
         b2 = (Button) findViewById(R.id.bh);
         b3 = (Button) findViewById(R.id.bs);
         b4 = (Button) findViewById(R.id.bp);
+        b1.setOnClickListener(this);
+        b2.setOnClickListener(this);
+        b3.setOnClickListener(this);
+        b4.setOnClickListener(this);
 
         t1 = (TextView)findViewById(R.id.tvGN); //group name
 
