@@ -19,6 +19,7 @@ public class myinfo extends AppCompatActivity {
     TextView t3;
     TextView t4;
     ImageView iv;
+    int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,8 @@ public class myinfo extends AppCompatActivity {
         t3 = (TextView)findViewById(R.id.tvG); //Group
         t4 = (TextView)findViewById(R.id.tvN); //DOB
         iv = (ImageView)findViewById(R.id.imageView); //picture
-
+        Bundle intent = getIntent().getExtras();
+        i = intent.getInt("User Value");
         //Use database to fill information
 
     }
@@ -43,19 +45,29 @@ public class myinfo extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.Top_10:
-                startActivity(new Intent(this, LeaderBoard.class));
+                Intent j = new Intent(this, LeaderBoard.class);
+                j.putExtra("User Value", i);
+                startActivity(j);
                 return true;
             case R.id.Group:
-                startActivity(new Intent(this, groups.class));
+                Intent k = new Intent(this, groups.class);
+                k.putExtra("User Value", i);
+                startActivity(k);
                 return true;
             case R.id.Trails:
-                startActivity(new Intent(this, Trails.class));
+                Intent l = new Intent(this, Trails.class);
+                l.putExtra("User Value", i);
+                startActivity(l);
                 return true;
             case R.id.info:
-                startActivity(new Intent(this, myinfo.class));
+                Intent m = new Intent(this, myinfo.class);
+                m.putExtra("User Value", i);
+                startActivity(m);
                 return true;
             case R.id.Home:
-                startActivity(new Intent(this, Home.class));
+                Intent n = new Intent(this, Home.class);
+                n.putExtra("User Value", i);
+                startActivity(n);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

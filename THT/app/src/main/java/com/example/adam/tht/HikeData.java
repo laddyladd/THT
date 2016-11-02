@@ -44,7 +44,7 @@ public class HikeData
     {
         String name = "";
         switch (i){
-            case 0: name = "Andy Layne Trail";
+            case 0: name = "Tinker Cliff";
                 break;
             case 1: name = "Angel's Rest";
                 break;

@@ -5,24 +5,40 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
  * Signup for app class.
  */
-public class SignUp extends AppCompatActivity implements View.OnClickListener {
+public class SignUp extends AppCompatActivity implements View.OnClickListener ,ListView.OnItemClickListener {
 
     Button signup;
     TextView login;
     EditText email;
     EditText password;
     EditText password2;
+    Button button;
+    ListView listView;
+    boolean clicked = false;
+    Integer team = -1;
+    ArrayList<String> oString;
+    ArrayAdapter<String> arrayAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,28 +51,24 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
         password2 = (EditText)findViewById(R.id.password2);
+        button = (Button)findViewById(R.id.button);
+        listView = (ListView)findViewById(R.id.listView2);
+        oString = new ArrayList<String>();
+        for (int i = 0; i < 10; i++) {
+           //Get list of teams from DB for loop is not needed probably
+        }
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                oString);
+
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(this);
+        Toast.makeText(this, "Please join a team from the list below or create a new one. ",
+                Toast.LENGTH_LONG).show();
+
     }
 
     public void login() {
-        /** DATABASE STUFF
-        ref.authWithPassword(email.getText().toString(), password.getText().toString(), new Firebase.AuthResultHandler() {
-            @Override
-            public void onAuthenticated(AuthData authData) {
-                System.out.println("User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
-                Intent j = new Intent(getApplicationContext(), AvailableItems.class);
-                startActivity(j);
-                finish();
-            }
-            @Override
-            public void onAuthenticationError(FirebaseError firebaseError) {
-                Context context = getApplicationContext();
-                CharSequence text = "Error";
-                int duration = Toast.LENGTH_LONG;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
-        });*/
         Intent j = new Intent(getApplicationContext(), Home.class);
         startActivity(j);
     }
@@ -64,33 +76,51 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view)
     {
+        if (!clicked)
+        {
+            Toast.makeText(this, "Make sure to join a team first. If you created one, still click the team you created please.",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
         if (view.getId() == login.getId()) {
             Intent j = new Intent(this, Home.class);
             startActivity(j);
         } else if (view.getId() == signup.getId()) {
 
-            if(password.getText().toString().equals(password2.getText().toString())) {
+            if(password.getText().toString().equals(password2.getText().toString()))
+            {
 
-                /** More database stuff
-                ref.createUser(email.getText().toString(), password.getText().toString(), new Firebase.ValueResultHandler<Map<String, Object>>() {
-                    @Override
-                    public void onSuccess(Map<String, Object> result) {
-                        login();
+                StringBuffer sb = new StringBuffer();
+                try {
+                    URL url = new URL("http://" + "localhost:62171"
+                            + "/api/Users/SignUp?=" + email.getText().toString() +
+                            "&password=" + password.getText().toString() + "&groupId=" + team);
+                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setDoOutput(true);
+                    InputStream is = new BufferedInputStream(urlConnection.getInputStream());
+                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                    String inputLine = "";
+                    while ((inputLine = br.readLine()) != null) {
+                        sb.append(inputLine);
                     }
-                    @Override
-                    public void onError(FirebaseError firebaseError) {
-                        Context context = getApplicationContext();
-                        CharSequence text = "Error";
-                        int duration = Toast.LENGTH_LONG;
-
-                        Toast toast = Toast.makeText(context, text, duration);
-                        toast.show();
-                    }
-
-
-                });
-                 */
-                login();
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(this, "Bad interent connection",
+                            Toast.LENGTH_LONG).show();
+                }
+                int i = 0;
+                if (i < 0)
+                {
+                    Toast.makeText(this, "Email already in use",
+                            Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Intent j = new Intent(this, Home.class);
+                    j.putExtra("User Value", i);
+                    startActivity(j);
+                }
             }
             else {
                 Context context = getApplicationContext();
@@ -102,5 +132,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             }
         }
     }
+    @Override
+    public void onItemClick(AdapterView<?> av, View v, int i, long l) {
+        team = i;
+        Toast.makeText(this, "You have joined team: " +oString.get(i).toString(),
+                Toast.LENGTH_LONG).show();
+    }
+
 
 }

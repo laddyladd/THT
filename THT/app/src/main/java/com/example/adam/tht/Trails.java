@@ -20,6 +20,7 @@ public class Trails extends AppCompatActivity implements ListView.OnItemClickLis
     ArrayAdapter<String> arrayAdapter;
     ListView listView;
     HikeData hike;
+    int i = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +29,10 @@ public class Trails extends AppCompatActivity implements ListView.OnItemClickLis
         listView = (ListView)findViewById(R.id.left_drawer);
         oString = new ArrayList<String>();
         hike = new HikeData();
-        for (int i = 0; i < 10; i++) {
-            oString.add(hike.getName(i) + "\t\t" + hike.getDistance(i));
+        Bundle intent = getIntent().getExtras();
+        i = intent.getInt("User Value");
+        for (int j = 0; j < 10; j++) {
+            oString.add(hike.getName(j) + "\t\t" + hike.getDistance(j));
         }
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
                 oString);
@@ -49,31 +52,42 @@ public class Trails extends AppCompatActivity implements ListView.OnItemClickLis
 
         switch (item.getItemId()) {
             case R.id.Top_10:
-                startActivity(new Intent(this, LeaderBoard.class));
+                Intent j = new Intent(this, LeaderBoard.class);
+                j.putExtra("User Value", i);
+                startActivity(j);
                 return true;
             case R.id.Group:
-                startActivity(new Intent(this, groups.class));
+                Intent k = new Intent(this, groups.class);
+                k.putExtra("User Value", i);
+                startActivity(k);
                 return true;
             case R.id.Trails:
-                startActivity(new Intent(this, Trails.class));
+                Intent l = new Intent(this, Trails.class);
+                l.putExtra("User Value", i);
+                startActivity(l);
                 return true;
             case R.id.info:
-                startActivity(new Intent(this, myinfo.class));
+                Intent m = new Intent(this, myinfo.class);
+                m.putExtra("User Value", i);
+                startActivity(m);
                 return true;
             case R.id.Home:
-                startActivity(new Intent(this, Home.class));
+                Intent n = new Intent(this, Home.class);
+                n.putExtra("User Value", i);
+                startActivity(n);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
     @Override
-    public void onItemClick(AdapterView<?> av, View v, int i, long l) {
+    public void onItemClick(AdapterView<?> av, View v, int k, long l) {
         //we can hardcode this for simplicity.
         //Each hike will have a value based off how we put it in the list
         //and we can just grab from there.
         Intent j = new Intent(this, trailinfo.class);
-        j.putExtra("Hike Value", i);
+        j.putExtra("Hike Value", k);
+        j.putExtra("User value", i);
         startActivityForResult(j, 1);
 
     }

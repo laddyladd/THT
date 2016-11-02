@@ -21,12 +21,15 @@ public class members extends AppCompatActivity implements View.OnClickListener {
     ArrayAdapter<String> arrayAdapter;
     ListView listView;
     Button b;
+    int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_members);
         b = (Button)findViewById(R.id.bb);
         b.setOnClickListener(this);
+        Bundle intent = getIntent().getExtras();
+        i = intent.getInt("User Value");
 
         listView = (ListView) findViewById(R.id.listView);
         oString = new ArrayList<String>();
@@ -44,6 +47,7 @@ public class members extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view)
     {
         Intent j = new Intent(this, groups.class);
+        j.putExtra("User Value", i);
         startActivity(j);
     }
 

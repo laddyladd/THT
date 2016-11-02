@@ -19,13 +19,15 @@ public class LeaderBoard extends AppCompatActivity {
     TextView team, miles, hikes;
     TableLayout table;
 
+    int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leader_board);
 
         table = (TableLayout)findViewById(R.id.table);
-
+        Bundle intent = getIntent().getExtras();
+        i = intent.getInt("User Value");
         team = new TextView(this);
         team.setText("Team Name");
 
@@ -52,23 +54,32 @@ public class LeaderBoard extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        System.out.println(item.getItemId());
 
         switch (item.getItemId()) {
             case R.id.Top_10:
-                startActivity(new Intent(this, LeaderBoard.class));
+                Intent j = new Intent(this, LeaderBoard.class);
+                j.putExtra("User Value", i);
+                startActivity(j);
                 return true;
             case R.id.Group:
-                startActivity(new Intent(this, groups.class));
+                Intent k = new Intent(this, groups.class);
+                k.putExtra("User Value", i);
+                startActivity(k);
                 return true;
             case R.id.Trails:
-                startActivity(new Intent(this, Trails.class));
+                Intent l = new Intent(this, Trails.class);
+                l.putExtra("User Value", i);
+                startActivity(l);
                 return true;
             case R.id.info:
-                startActivity(new Intent(this, myinfo.class));
+                Intent m = new Intent(this, myinfo.class);
+                m.putExtra("User Value", i);
+                startActivity(m);
                 return true;
             case R.id.Home:
-                startActivity(new Intent(this, Home.class));
+                Intent n = new Intent(this, Home.class);
+                n.putExtra("User Value", i);
+                startActivity(n);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

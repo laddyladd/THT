@@ -16,6 +16,7 @@ public class trailinfo extends AppCompatActivity implements View.OnClickListener
     Button b;
     Button d;
     int i;
+    int k;
     TextView t1;
     TextView t2;
     TextView t3;
@@ -33,6 +34,7 @@ public class trailinfo extends AppCompatActivity implements View.OnClickListener
 
         Bundle intent = getIntent().getExtras();
         i = intent.getInt("Hike Value");
+        k = intent.getInt("User Value");
         data = new HikeData();
         t1 = (TextView)findViewById(R.id.textView15);
         t2 = (TextView)findViewById(R.id.textView16);
@@ -52,6 +54,7 @@ public class trailinfo extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         if (view.getId() == b.getId()) {
             Intent j = new Intent(this, Trails.class);
+            j.putExtra("User value", k);
             startActivity(j);
         } else if (view.getId() == d.getId()) {
             //BRING US TO DIRECTIONS ON GOOGLE

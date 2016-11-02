@@ -21,12 +21,15 @@ public class hikes extends AppCompatActivity implements View.OnClickListener {
     ArrayAdapter<String> arrayAdapter;
     ListView listView;
     Button b;
+    int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hikes);
         b = (Button)findViewById(R.id.bb);
         b.setOnClickListener(this);
+        Bundle intent = getIntent().getExtras();
+        i = intent.getInt("User Value");
 
         oString = new ArrayList<String>();
         listView = (ListView)findViewById(R.id.listView);
@@ -46,6 +49,7 @@ public class hikes extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view)
     {
         Intent j = new Intent(this, groups.class);
+        j.putExtra("User Value", i);
         startActivity(j);
     }
 
