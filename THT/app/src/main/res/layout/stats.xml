@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:baselineAligned="false">
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center"
+        android:text="Team"
+        android:id="@+id/teamname"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:text="Points: "
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:id="@+id/points"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:text="Hikes Completed: "
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:id="@+id/hikescompleted"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:text="Total Distance Hiked: "
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:id="@+id/distance"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <Button
+        android:text="Back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/back" />
+
+</LinearLayout>

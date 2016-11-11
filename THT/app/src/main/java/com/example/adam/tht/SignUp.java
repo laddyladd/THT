@@ -34,11 +34,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener ,L
     EditText password;
     EditText password2;
     Button button;
+    Button button2;
     ListView listView;
     boolean clicked = false;
     Integer team = -1;
     ArrayList<String> oString;
     ArrayAdapter<String> arrayAdapter;
+    EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +49,16 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener ,L
         signup = (Button)findViewById(R.id.btn_signup);
         signup.setOnClickListener(this);
         login = (TextView) findViewById(R.id.link_login);
-        login.setOnClickListener(this);
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
         password2 = (EditText)findViewById(R.id.password2);
         button = (Button)findViewById(R.id.button);
+        button.setOnClickListener(this);
+        button2 = (Button)findViewById(R.id.button2);
+        button2.setOnClickListener(this);
+        button2.setVisibility(View.INVISIBLE);
+        editText = (EditText)findViewById(R.id.editText2);
+        editText.setVisibility(View.INVISIBLE);
         listView = (ListView)findViewById(R.id.listView2);
         oString = new ArrayList<String>();
         for (int i = 0; i < 10; i++) {
@@ -67,73 +74,87 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener ,L
 
     }
 
-    public void login() {
-
-        Intent j = new Intent(getApplicationContext(), Home.class);
-        startActivity(j);
-    }
-
     @Override
     public void onClick(View view)
     {
-        if (!clicked)
+        if (view.getId() == R.id.button)
         {
-            Toast.makeText(this, "Make sure to join a team first. If you created one, still click the team you created please.",
+            editText.setVisibility(View.VISIBLE);
+            button2.setVisibility(View.VISIBLE);
+            return;
+        }
+        else if(view.getId() == R.id.button2)
+        {
+            //push new team to db
+            oString.add(editText.getText().toString());
+            arrayAdapter.notifyDataSetChanged();
+            editText.setVisibility(View.INVISIBLE);
+            button2.setVisibility(View.INVISIBLE);
+            return;
+        }
+        else if (!clicked)
+        {
+            Toast.makeText(this, "Make sure to join a team first. If you created one,  click on the team you created please.",
                     Toast.LENGTH_LONG).show();
             return;
         }
-        if (view.getId() == login.getId()) {
-            Intent j = new Intent(this, Home.class);
-            startActivity(j);
-        } else if (view.getId() == signup.getId()) {
+        else
+        {
+            if (view.getId() == login.getId()) {
+                Intent j = new Intent(this, Home.class);
+                startActivity(j);
+            } else if (view.getId() == signup.getId()) {
 
-            if(password.getText().toString().equals(password2.getText().toString()))
-            {
+                if(password.getText().toString().equals(password2.getText().toString()))
+                {
 
-                StringBuffer sb = new StringBuffer();
-                try {
-                    URL url = new URL("http://" + "localhost:62171"
-                            + "/api/Users/SignUp?=" + email.getText().toString() +
-                            "&password=" + password.getText().toString() + "&groupId=" + team);
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    urlConnection.setDoOutput(true);
-                    InputStream is = new BufferedInputStream(urlConnection.getInputStream());
-                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                    String inputLine = "";
-                    while ((inputLine = br.readLine()) != null) {
-                        sb.append(inputLine);
+                    StringBuffer sb = new StringBuffer();
+                    try {
+                        URL url = new URL("http://" + "localhost:62171"
+                                + "/api/Users/SignUp?=" + email.getText().toString() +
+                                "&password=" + password.getText().toString() + "&groupId=" + team);
+                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                        urlConnection.setDoOutput(true);
+                        InputStream is = new BufferedInputStream(urlConnection.getInputStream());
+                        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                        String inputLine = "";
+                        while ((inputLine = br.readLine()) != null) {
+                            sb.append(inputLine);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Toast.makeText(this, "Bad interent connection",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    int i = 0;
+                    if (i < 0)
+                    {
+                        Toast.makeText(this, "Email already in use",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    else
+                    {
+                        Intent j = new Intent(this, Home.class);
+                        j.putExtra("User Value", i);
+                        startActivity(j);
                     }
                 }
-                catch (Exception e)
-                {
-                    Toast.makeText(this, "Bad interent connection",
-                            Toast.LENGTH_LONG).show();
-                }
-                int i = 0;
-                if (i < 0)
-                {
-                    Toast.makeText(this, "Email already in use",
-                            Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Intent j = new Intent(this, Home.class);
-                    j.putExtra("User Value", i);
-                    startActivity(j);
-                }
-            }
-            else {
-                Context context = getApplicationContext();
-                CharSequence text = "Passwords don't match";
-                int duration = Toast.LENGTH_SHORT;
+                else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Passwords don't match";
+                    int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
+
         }
     }
     @Override
     public void onItemClick(AdapterView<?> av, View v, int i, long l) {
+        clicked = true;
         team = i;
         Toast.makeText(this, "You have joined team: " +oString.get(i).toString(),
                 Toast.LENGTH_LONG).show();
