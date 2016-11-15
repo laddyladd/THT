@@ -27,7 +27,13 @@ import com.example.adam.tht.myinfo;
 import com.example.adam.tht.services.UploadService;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -165,7 +171,10 @@ public class ImgurMain extends AppCompatActivity implements ListView.OnItemClick
         @Override
         public void success(ImageResponse imageResponse, Response response) {
             clearInput();
-            //add the url from imageResponse to the db here.
+
+//            System.out.println(imageResponse.data.link);
+            String userURL = "http://ec2-35-160-141-23.us-west-2.compute.amazonaws.com/api/HikeImages?userId=" + i + "%&hikeId="+user+"imageUrl="+imageResponse.data.link;
+
         }
 
         @Override
@@ -173,6 +182,7 @@ public class ImgurMain extends AppCompatActivity implements ListView.OnItemClick
             //Assume we have no connection, since error is null
             if (error == null) {
                 //Snackbar.make(findViewById(R.id.rootView), "No internet connection", Snackbar.LENGTH_SHORT).show();
+
             }
         }
     }
@@ -217,5 +227,25 @@ public class ImgurMain extends AppCompatActivity implements ListView.OnItemClick
         //and we can just grab from there.
 
         user = k;
+    }
+
+    public String getInfo(String s) {
+        try {
+            URL url = new URL(s);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("PUT");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            Toast.makeText(this, "Bad internet connection",
+                    Toast.LENGTH_LONG).show();
+        }
+        return null;
     }
 }

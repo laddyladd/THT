@@ -105,11 +105,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener ,L
 
                     StringBuffer sb = new StringBuffer();
                     try {
-                        URL url = new URL("http://" + "localhost:62171"
-                                + "/api/Users/SignUp?=" + email.getText().toString() +
+                        URL url = new URL("http://ec2-35-160-141-23.us-west-2.compute.amazonaws.com/api/Users/SignUp?=" + email.getText().toString() +
                                 "&password=" + password.getText().toString() + "&groupId=" + team);
                         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                         urlConnection.setDoOutput(true);
+                        urlConnection.setRequestMethod("PUT");
                         InputStream is = new BufferedInputStream(urlConnection.getInputStream());
                         BufferedReader br = new BufferedReader(new InputStreamReader(is));
                         String inputLine = "";

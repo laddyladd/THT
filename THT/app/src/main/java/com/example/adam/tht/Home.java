@@ -160,10 +160,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener
             StringBuffer sb = new StringBuffer();
 
             try {
-                URL url = new URL("http://" + "localhost:62171"
-                        + "/api/Users/CheckIn?=" + i + "&hikeId=" + checkinVal);
+                URL url = new URL("http://ec2-35-160-141-23.us-west-2.compute.amazonaws.com/api/Users/CheckIn?userId=" + i + "&hikeId=" + checkinVal);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
+                urlConnection.setRequestMethod("PUT");
                 InputStream is = new BufferedInputStream(urlConnection.getInputStream());
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));
                 String inputLine = "";

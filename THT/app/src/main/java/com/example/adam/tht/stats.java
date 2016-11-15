@@ -102,6 +102,8 @@ public class stats extends AppCompatActivity implements View.OnClickListener {
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             StringBuilder stringBuilder = new StringBuilder();
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("PUT");
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line).append("\n");

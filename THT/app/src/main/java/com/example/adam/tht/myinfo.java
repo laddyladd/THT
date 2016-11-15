@@ -10,10 +10,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.adam.tht.activities.ImgurMain;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Adam on 10/15/2016.
@@ -22,7 +31,6 @@ public class myinfo extends AppCompatActivity {
     TextView t1;
     TextView t2;
     TextView t3;
-    TextView t4;
     ImageView iv;
     int CAMERA_REQUEST = 1888;
     int i;
@@ -33,11 +41,23 @@ public class myinfo extends AppCompatActivity {
         t1 = (TextView)findViewById(R.id.tvH); //hikes
         t2 = (TextView)findViewById(R.id.tvM); //Miles
         t3 = (TextView)findViewById(R.id.tvG); //Group
-        t4 = (TextView)findViewById(R.id.tvN); //DOB
         iv = (ImageView)findViewById(R.id.imageView); //picture
         Bundle intent = getIntent().getExtras();
         i = intent.getInt("User Value");
         //Use database to fill information
+
+        String userURL = "http://ec2-35-160-141-23.us-west-2.compute.amazonaws.com/api/Users/Stats?id=" + i;
+        String teamID = getInfo(userURL);
+        List<String> elephantList = Arrays.asList(teamID.split(","));
+        List<String> hikes = Arrays.asList(elephantList.get(0).split("|"));
+        String s ="";
+        for (int j = 0; j < hikes.size(); j++)
+        {
+            s += hikes.get(j) + ", ";
+        }
+        t1.setText(elephantList.get(1));
+        t2.setText(elephantList.get(2));
+        t3.setText(elephantList.get(0));
 
     }
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
@@ -92,5 +112,31 @@ public class myinfo extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public String getInfo(String s) {
+        try {
+            URL url = new URL(s);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("PUT");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+            bufferedReader.close();
+            if(s.indexOf("Users") != -1){
+                JSONObject user = new JSONObject(stringBuilder.toString());
+                return user.getString("TeamId");
+            }
+            return stringBuilder.toString();
+        } catch (Exception e) {
+            Toast.makeText(this, "Bad internet connection",
+                    Toast.LENGTH_LONG).show();
+        }
+        return null;
+    }
+
 
 }
