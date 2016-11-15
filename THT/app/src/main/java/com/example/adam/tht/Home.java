@@ -2,7 +2,10 @@ package com.example.adam.tht;
 
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,8 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.adam.tht.activities.ImgurMain;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -25,6 +31,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener
     int i = 0;
 
     Button checkin;
+    private static final int CAMERA_REQUEST = 1888;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +41,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener
         checkin.setOnClickListener(this);
         Bundle intent = getIntent().getExtras();
         i = intent.getInt("User Value");
+
     }
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
 
@@ -69,6 +78,20 @@ public class Home extends AppCompatActivity implements View.OnClickListener
                 n.putExtra("User Value", i);
                 startActivity(n);
                 return true;
+            case R.id.camera:
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                File output = new File(dir, "CameraContentDemo.jpeg");
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                return true;
+            case R.id.upload:
+                Intent imgur = new Intent(this, ImgurMain.class);
+                startActivity(imgur);
+                return true;
+                //IM A G
+//                Toast.makeText(this, "PENIS",
+//                        Toast.LENGTH_LONG).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -162,4 +185,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener
         }
 
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+            File output = new File(dir, "CameraContentDemo.jpeg");
+        }
+    }
+
 }

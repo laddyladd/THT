@@ -10,7 +10,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 /**
- * Created by scottshumway on 10/15/16.
+ * Created by adam on 10/15/16.
  */
 
 public class LeaderBoard extends AppCompatActivity {

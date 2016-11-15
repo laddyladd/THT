@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/Home"
+        android:title="Home" />
     <item android:id="@+id/Top_10"
         android:title="Top 10" />
     <item android:id="@+id/Trails"
@@ -7,7 +9,9 @@
     <item android:id="@+id/Group"
         android:title="My Group" />
     <item android:id="@+id/info"
-        android:title="Stats/My Info" />
-    <item android:id="@+id/Home"
-        android:title="Stats/Open Camera" />
+        android:title="My stats" />
+    <item android:id="@+id/camera"
+        android:title="Take Photo"/>
+    <item android:id="@+id/upload"
+        android:title="Upload Photo"/>
 </menu>
