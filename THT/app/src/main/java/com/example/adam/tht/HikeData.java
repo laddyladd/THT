@@ -68,6 +68,35 @@ public class HikeData
 
         return name;
     }
+
+    public String getOtherName(int i)
+    {
+        String name = "";
+        switch (i){
+            case 0: name = "McAfees Knob";
+                break;
+            case 1: name = "Dragon's Tooth";
+                break;
+            case 2: name = "Cascades";
+                break;
+            case 3: name = "Tinker Cliff";
+                break;
+            case 4: name = "Angel's Rest";
+                break;
+            case 5: name = "War Spur";
+                break;
+            case 6: name = "Flat Top";
+                break;
+            case 7: name = "Devil's Marbleyard";
+                break;
+            case 8: name = "Kelly's Knob";
+                break;
+            case 9: name = "Smith Mountain Lake";
+                break;
+        }
+
+        return name;
+    }
     public String getDistance(int i)
     {
         //returning one way distance

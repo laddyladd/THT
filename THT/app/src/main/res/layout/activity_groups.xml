@@ -40,12 +40,6 @@
             android:textSize="20dp"
             android:text="Stats" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="79dp"
-            android:text="Pictures"
-            android:id="@+id/bp"
-            android:textSize="20dp" />
     </TableLayout>
 
 </LinearLayout>

@@ -1,7 +1,10 @@
 package com.example.adam.tht;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,6 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.adam.tht.activities.ImgurMain;
+
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +27,7 @@ public class Trails extends AppCompatActivity implements ListView.OnItemClickLis
     ListView listView;
     HikeData hike;
     int i = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,19 @@ public class Trails extends AppCompatActivity implements ListView.OnItemClickLis
                 Intent n = new Intent(this, Home.class);
                 n.putExtra("User Value", i);
                 startActivity(n);
+                return true;
+            case R.id.camera:
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                File output = new File(dir, "CameraContentDemo.jpeg");
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));
+                cameraIntent.putExtra("User Value", i);
+                startActivityForResult(cameraIntent, 1888);
+                return true;
+            case R.id.upload:
+                Intent imgur = new Intent(this, ImgurMain.class);
+                imgur.putExtra("User Value", i);
+                startActivity(imgur);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

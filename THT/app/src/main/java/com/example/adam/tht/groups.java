@@ -1,7 +1,6 @@
 package com.example.adam.tht;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
@@ -30,11 +29,9 @@ public class groups extends AppCompatActivity implements View.OnClickListener {
         b1 = (Button) findViewById(R.id.bm);
         b2 = (Button) findViewById(R.id.bh);
         b3 = (Button) findViewById(R.id.bs);
-        b4 = (Button) findViewById(R.id.bp);
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
         b3.setOnClickListener(this);
-        b4.setOnClickListener(this);
         Bundle intent = getIntent().getExtras();
         i = intent.getInt("User Value");
         t1 = (TextView)findViewById(R.id.tvGN); //group name
@@ -106,11 +103,6 @@ public class groups extends AppCompatActivity implements View.OnClickListener {
 
             startActivity(j);
         }
-        if (view.getId() == b4.getId())
-        {
-            // should be imgur our account
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.imgur.com"));
-            startActivity(browserIntent);
-        }
+
     }
 }

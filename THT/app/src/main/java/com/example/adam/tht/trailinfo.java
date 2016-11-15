@@ -61,7 +61,7 @@ public class trailinfo extends AppCompatActivity implements View.OnClickListener
             String search = data.getName(i);
             search.replaceAll("\\s+","+");
 
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("geo:37.2296, -80.4139?q="+search));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:37.2296, -80.4139?q="+search));
             startActivity(intent);
         }
     }

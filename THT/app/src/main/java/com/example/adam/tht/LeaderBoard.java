@@ -1,13 +1,20 @@
 package com.example.adam.tht;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.example.adam.tht.activities.ImgurMain;
+
+import java.io.File;
 
 /**
  * Created by adam on 10/15/16.
@@ -18,6 +25,7 @@ public class LeaderBoard extends AppCompatActivity {
     TableRow rowHeader, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10;
     TextView team, miles, hikes;
     TableLayout table;
+    private static final int CAMERA_REQUEST = 1888;
 
     int i;
     @Override
@@ -80,6 +88,19 @@ public class LeaderBoard extends AppCompatActivity {
                 Intent n = new Intent(this, Home.class);
                 n.putExtra("User Value", i);
                 startActivity(n);
+                return true;
+            case R.id.camera:
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                File output = new File(dir, "CameraContentDemo.jpeg");
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));
+                cameraIntent.putExtra("User Value", i);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                return true;
+            case R.id.upload:
+                Intent imgur = new Intent(this, ImgurMain.class);
+                imgur.putExtra("User Value", i);
+                startActivity(imgur);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

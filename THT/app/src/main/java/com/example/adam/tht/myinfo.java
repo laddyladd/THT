@@ -1,14 +1,19 @@
 package com.example.adam.tht;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.adam.tht.activities.ImgurMain;
+
+import java.io.File;
 
 /**
  * Created by Adam on 10/15/2016.
@@ -19,6 +24,7 @@ public class myinfo extends AppCompatActivity {
     TextView t3;
     TextView t4;
     ImageView iv;
+    int CAMERA_REQUEST = 1888;
     int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,19 @@ public class myinfo extends AppCompatActivity {
                 Intent n = new Intent(this, Home.class);
                 n.putExtra("User Value", i);
                 startActivity(n);
+                return true;
+            case R.id.camera:
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+                File output = new File(dir, "CameraContentDemo.jpeg");
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));
+                cameraIntent.putExtra("User Value", i);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                return true;
+            case R.id.upload:
+                Intent imgur = new Intent(this, ImgurMain.class);
+                imgur.putExtra("User Value", i);
+                startActivity(imgur);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

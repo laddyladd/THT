@@ -4,18 +4,31 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.adam.tht.HikeData;
+import com.example.adam.tht.Home;
+import com.example.adam.tht.LeaderBoard;
 import com.example.adam.tht.R;
+import com.example.adam.tht.Trails;
+import com.example.adam.tht.groups;
 import com.example.adam.tht.helpers.DocumentHelper;
 import com.example.adam.tht.helpers.IntentHelper;
 import com.example.adam.tht.imgurmodel.ImageResponse;
 import com.example.adam.tht.imgurmodel.Upload;
+import com.example.adam.tht.myinfo;
 import com.example.adam.tht.services.UploadService;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,7 +39,7 @@ import retrofit.client.Response;
 
 //import android.support.design.widget.Snackbar;
 
-public class ImgurMain extends AppCompatActivity {
+public class ImgurMain extends AppCompatActivity implements ListView.OnItemClickListener{
 //    public final static String TAG = ImgurMain.class.getSimpleName();
     /*
       These annotations are for ButterKnife by Jake Wharton
@@ -36,8 +49,16 @@ public class ImgurMain extends AppCompatActivity {
     ImageView uploadImage;
     @Bind(R.id.editText_upload_title)
     EditText uploadTitle;
-    @Bind(R.id.editText_upload_desc)
-    EditText uploadDesc;
+//    @Bind(R.id.editText_upload_desc)
+//    EditText uploadDesc;
+
+    ListView listView;
+    ArrayList<String> oString;
+    HikeData hike;
+    int i;
+    int user = -1;
+
+    ArrayAdapter<String> arrayAdapter;
 
     private Upload upload; // Upload object containging image and meta data
     private File chosenFile; //chosen file from intent
@@ -47,6 +68,20 @@ public class ImgurMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imgur);
         ButterKnife.bind(this);
+
+        listView = (ListView)findViewById(R.id.trails);
+        oString = new ArrayList<String>();
+        hike = new HikeData();
+        Bundle intent = getIntent().getExtras();
+        i = intent.getInt("User Value");
+        for (int j = 0; j < 10; j++) {
+            oString.add(hike.getOtherName(j));
+        }
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                oString);
+
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(this);
 
     }
 
@@ -83,15 +118,15 @@ public class ImgurMain extends AppCompatActivity {
 
     @OnClick(R.id.image)
     public void onChooseImage() {
-        uploadDesc.clearFocus();
+//        uploadDesc.clearFocus();
         uploadTitle.clearFocus();
         IntentHelper.chooseFileIntent(this);
     }
 
     private void clearInput() {
         uploadTitle.setText("");
-        uploadDesc.clearFocus();
-        uploadDesc.setText("");
+//        uploadDesc.clearFocus();
+//        uploadDesc.setText("");
         uploadTitle.clearFocus();
         uploadImage.setImageResource(R.drawable.ic_photo_library_black);
     }
@@ -101,13 +136,20 @@ public class ImgurMain extends AppCompatActivity {
     /*
       Create the @Upload object
      */
-        if (chosenFile == null) return;
-        createUpload(chosenFile);
+         if(user != -1) {
+             if (chosenFile == null) return;
+             createUpload(chosenFile);
 
-    /*
-      Start upload
-     */
-        new UploadService(this).Execute(upload, new UiCallback());
+        /*
+          Start upload
+         */
+             new UploadService(this).Execute(upload, new UiCallback());
+         }
+        else {
+             Toast.makeText(this, "Select a hike",
+                     Toast.LENGTH_LONG).show();
+         }
+
     }
 
     private void createUpload(File image) {
@@ -115,7 +157,7 @@ public class ImgurMain extends AppCompatActivity {
 
         upload.image = image;
         upload.title = uploadTitle.getText().toString();
-        upload.description = uploadDesc.getText().toString();
+//        upload.description = uploadDesc.getText().toString();
     }
 
     private class UiCallback implements Callback<ImageResponse> {
@@ -123,6 +165,7 @@ public class ImgurMain extends AppCompatActivity {
         @Override
         public void success(ImageResponse imageResponse, Response response) {
             clearInput();
+            //add the url from imageResponse to the db here.
         }
 
         @Override
@@ -132,5 +175,47 @@ public class ImgurMain extends AppCompatActivity {
                 //Snackbar.make(findViewById(R.id.rootView), "No internet connection", Snackbar.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.Top_10:
+                Intent j = new Intent(this, LeaderBoard.class);
+                j.putExtra("User Value", i);
+                startActivity(j);
+                return true;
+            case R.id.Group:
+                Intent k = new Intent(this, groups.class);
+                k.putExtra("User Value", i);
+                startActivity(k);
+                return true;
+            case R.id.Trails:
+                Intent l = new Intent(this, Trails.class);
+                l.putExtra("User Value", i);
+                startActivity(l);
+                return true;
+            case R.id.info:
+                Intent m = new Intent(this, myinfo.class);
+                m.putExtra("User Value", i);
+                startActivity(m);
+                return true;
+            case R.id.Home:
+                Intent n = new Intent(this, Home.class);
+                n.putExtra("User Value", i);
+                startActivity(n);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    @Override
+    public void onItemClick(AdapterView<?> av, View v, int k, long l) {
+        //we can hardcode this for simplicity.
+        //Each hike will have a value based off how we put it in the list
+        //and we can just grab from there.
+
+        user = k;
     }
 }

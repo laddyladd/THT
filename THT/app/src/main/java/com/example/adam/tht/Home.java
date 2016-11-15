@@ -83,15 +83,14 @@ public class Home extends AppCompatActivity implements View.OnClickListener
                 File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
                 File output = new File(dir, "CameraContentDemo.jpeg");
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));
+                cameraIntent.putExtra("User Value", i);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
                 return true;
             case R.id.upload:
                 Intent imgur = new Intent(this, ImgurMain.class);
+                imgur.putExtra("User Value", i);
                 startActivity(imgur);
                 return true;
-                //IM A G
-//                Toast.makeText(this, "PENIS",
-//                        Toast.LENGTH_LONG).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -137,27 +136,27 @@ public class Home extends AppCompatActivity implements View.OnClickListener
         }
         else if ((L.getLatitude() >= 26.6064 -.02 && L.getLatitude() <= 26.6064 + .02) && (L.getLongitude() >= 36.5517 -.02 && L.getLongitude() < 36.5517 + .02))
         {
+            checkinVal = 7;
             s = "Flat Top";
         }
         else if ((L.getLatitude() >= 37.57119 -.02 && L.getLatitude() <= 37.57119 + .02) && (L.getLongitude() >= -79.491723 -.02 && L.getLongitude() < -79.491723 + .02))
         {
-            checkinVal = 7;
+            checkinVal = 8;
             s = "Devils's Marbleyard";
         }
         else if ((L.getLatitude() >= 37.37928 -.02 && L.getLatitude() <= 37.37928 + .02) && (L.getLongitude() >= -80.44643 -.02 && L.getLongitude() < -80.44643 + .02))
         {
-            checkinVal = 8;
+            checkinVal =9;
             s = "Kelly's Knob";
         }
         else if ((L.getLatitude() >= 37.091781 -.02 && L.getLatitude() <= 37.091781 + .02) && (L.getLongitude() >= -79.593104 -.02 && L.getLongitude() < -79.593104 + .02))
         {
-            checkinVal = 9;
+            checkinVal = 10;
             s = "Smith Mountain Lake";
         }
         if ( s != "")
         {
-            Toast.makeText(this, "You have successfully checked into : " + s,
-                    Toast.LENGTH_LONG).show();
+
             StringBuffer sb = new StringBuffer();
 
             try {
@@ -171,26 +170,25 @@ public class Home extends AppCompatActivity implements View.OnClickListener
                 while ((inputLine = br.readLine()) != null) {
                     sb.append(inputLine);
                 }
+                Toast.makeText(this, "You have successfully checked into : " + s,
+                        Toast.LENGTH_LONG).show();
             }
             catch (Exception e)
             {
                 Toast.makeText(this, "Bad interent connection",
                         Toast.LENGTH_LONG).show();
+                return;
             }
         }
         else
         {
             Toast.makeText(this, "You have failed to check into any valid hike.",
                     Toast.LENGTH_LONG).show();
+            return;
         }
 
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-            File output = new File(dir, "CameraContentDemo.jpeg");
-        }
-    }
+
 
 }

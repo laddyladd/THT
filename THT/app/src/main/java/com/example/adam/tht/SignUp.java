@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -21,7 +20,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Signup for app class.
@@ -100,10 +98,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener ,L
         }
         else
         {
-            if (view.getId() == login.getId()) {
-                Intent j = new Intent(this, Home.class);
-                startActivity(j);
-            } else if (view.getId() == signup.getId()) {
+            if (view.getId() == signup.getId()) {
 
                 if(password.getText().toString().equals(password2.getText().toString()))
                 {
@@ -126,12 +121,14 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener ,L
                     {
                         Toast.makeText(this, "Bad interent connection",
                                 Toast.LENGTH_LONG).show();
+                        return;
                     }
                     int i = 0;
                     if (i < 0)
                     {
                         Toast.makeText(this, "Email already in use",
                                 Toast.LENGTH_LONG).show();
+                        return;
                     }
                     else
                     {

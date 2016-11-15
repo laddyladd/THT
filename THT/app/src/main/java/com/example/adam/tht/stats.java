@@ -2,8 +2,6 @@ package com.example.adam.tht;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.util.ArrayMap;
-import android.support.v4.util.SimpleArrayMap;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,16 +9,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
-import java.util.Map;
 
 
 /**
